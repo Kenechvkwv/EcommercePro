@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +26,17 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get(
+        '/dashboard',
+        function () {
+            $usertype = Auth::user()->usertype;
+            if ($usertype == '1') {
+                return view('admin.home');
+            } else {
+                return view('dashboard');
+            }
+        }
+    )->name('dashboard');
 });
+
+route::get('/redirect', [HomeController::class, 'redirect']);
