@@ -34,18 +34,20 @@
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </form>
-                    @if (auth()->user())
-                        <li class="nav-item">
-                            <x-app-layout></x-app-layout>
-                        </li>
-                    @else
-                        <li class="nav-item mr-md-3 mb-3 mb-md-0">
-                            <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
-                        </li>
+                    @if (Route::has('login'))
+                        @auth
+                            <li class="nav-item">
+                                <x-app-layout></x-app-layout>
+                            </li>
+                        @else
+                            <li class="nav-item mr-md-3 mb-3 mb-md-0">
+                                <a class="btn btn-primary" href="{{ route('login') }}">Login</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="btn btn-success" href="{{ route('register') }}">Register</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="btn btn-success" href="{{ route('register') }}">Register</a>
+                            </li>
+                        @endauth
                     @endif
                 </ul>
             </div>
